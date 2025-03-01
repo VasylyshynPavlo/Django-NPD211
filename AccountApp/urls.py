@@ -5,6 +5,6 @@ from django.urls import path
 urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', views.logout_view, name='logout'),  # Використовуємо твою logout_view
+    path('logout/', views.logout_view, name='logout'), 
     path('', views.home, name='home'),
 ]

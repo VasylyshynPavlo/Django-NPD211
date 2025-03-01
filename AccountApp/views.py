@@ -12,18 +12,18 @@ def register(request):
         confirm_password = request.POST['confirm_password']
 
         if password != confirm_password:
-            messages.error(request, 'Паролі не співпадають!')
+            messages.error(request, 'Passwords do not match!')
             return redirect('register')
 
         if User.objects.filter(username=username).exists():
-            messages.error(request, 'Ім\'я користувача вже зайняте!')
+            messages.error(request, 'The username is already taken!')
             return redirect('register')
         if User.objects.filter(email=email).exists():
-            messages.error(request, 'Email вже зареєстрований!')
+            messages.error(request, 'Email is already registered!')
             return redirect('register')
 
         user = User.objects.create_user(username=username, email=email, password=password)
-        messages.success(request, 'Реєстрація успішна! Тепер ви можете увійти.')
+        messages.success(request, 'Registration is successful! You can now log in.')
         return redirect('login')
 
     return render(request, 'register.html')
@@ -36,10 +36,10 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'Вхід успішний!')
+            messages.success(request, 'Login successful!')
             return redirect('home')
         else:
-            messages.error(request, 'Невірне ім\'я користувача або пароль!')
+            messages.error(request, 'Incorrect username or password!')
             return redirect('login')
 
     return render(request, 'login.html')
@@ -54,14 +54,14 @@ def home(request):
         confirm_password = request.POST.get('confirm_password', '')
 
         if password and password != confirm_password:
-            messages.error(request, 'Паролі не співпадають!')
+            messages.error(request, 'Passwords do not match!')
             return redirect('home')
 
         if User.objects.filter(username=username).exclude(id=user.id).exists():
-            messages.error(request, 'Ім\'я користувача вже зайняте!')
+            messages.error(request, 'The username is already taken!')
             return redirect('home')
         if User.objects.filter(email=email).exclude(id=user.id).exists():
-            messages.error(request, 'Email вже зареєстрований!')
+            messages.error(request, 'Email is already registered!')
             return redirect('home')
 
         user.username = username
@@ -70,12 +70,12 @@ def home(request):
             user.set_password(password)
         user.save()
 
-        messages.success(request, 'Дані профілю успішно оновлені!')
+        messages.success(request, 'Profile data has been successfully updated!')
         return redirect('home')
 
     return render(request, 'home.html', {'user': request.user})
 
 def logout_view(request):
     logout(request)
-    messages.success(request, 'Ви успішно вийшли з акаунта.')
+    messages.success(request, 'You have successfully logged out of your account.')
     return redirect('login')

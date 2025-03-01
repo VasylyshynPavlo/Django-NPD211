@@ -10,22 +10,24 @@
 <body>
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="card p-4" style="width: 100%; max-width: 500px;">
-            <h2 class="text-center mb-4">Вхід</h2>
+            <h2 class="text-center mb-4">Login</h2>
             {% if messages %}
             <div class="alert alert-warning">
-                {% for message in messages %}
-                {{ message }}
-                {% endfor %}
+            {% for message in messages %}
+                {% if forloop.last %}
+                    {{ message }}
+                {% endif %}
+            {% endfor %}
             </div>
             {% endif %}
             <form method="POST" novalidate>
                 {% csrf_token %}
 
                 <div class="mb-3">
-                    <label for="username" class="form-label">Ім'я користувача</label>
+                    <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username" required minlength="3">
                     <div class="invalid-feedback">
-                        Ім'я має бути не менше 3 символів.
+                        The name must be at least 3 characters long.
                     </div>
                 </div>
 
@@ -33,15 +35,15 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" required
                         pattern="^(?=.*[A-Z])(?=.*\W)(?=.*[a-zA-Z0-9]).{6,}$"
-                        title="Пароль має бути не менше 6 символів, містити не манше ніж одну велику літеру та один спеціальний символ.">
+                        title="The password must be at least 6 characters long and contain no more than one capital letter and one special character.">
                     <div class="invalid-feedback">
-                        Пароль має бути не менше 6 символів, містити не манше ніж одну велику літеру та один спеціальний символ.
+                        The password must be at least 6 characters long and contain no more than one capital letter and one special character.
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100">Увійти</button>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
-            <p>Ще немає акаунту? <a href="{% url 'register' %}">Зареєструватися</a></p>
+            <p>Don't have account? <a href="{% url 'register' %}">Registration</a></p>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

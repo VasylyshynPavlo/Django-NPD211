@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Додати колекцію</title>
+    <title>Add collection</title>
 </head>
 <body>
     <div class="container mt-5">
@@ -12,14 +12,20 @@
         <form method="POST">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="title" class="form-label">Назва колекції</label>
+                <label for="title" class="form-label">Collection name</label>
                 <input type="text" class="form-control" id="title" name="title" required>
             </div>
             <div class="mb-3">
-                <label for="language" class="form-label">Мова</label>
+                <label for="language" class="form-label">Language</label>
                 <input type="text" class="form-control" id="language" name="language" required>
             </div>
-            <button type="submit" class="btn btn-primary">Додати колекцію</button>
+            <div class="form-check mb-3">
+                <input name="public" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Public
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Add collection</button>
         </form>
     </div>
 </body>
